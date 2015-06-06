@@ -1,12 +1,12 @@
 .slot{
-	height: 50px;
-	width: 50px;
+	height: 30px;
+	width: 30px;
 	border: 1px solid black;
 	float: left;
 }
 
 .row{
-	height: 50px;
+	height: 30px;
 	position: relative;
 }
 
@@ -18,6 +18,6 @@ body{
 
 #boardSpace{
 	margin: 0 auto;
-	width: 520px;
+	width: 320px;
 	text-align: center;
 }

@@ -114,16 +114,26 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+h1{
+    margin-bottom: 150px;
+}
 
 
 #buttons{
     margin : 0 auto;
     text-align: left;
     width : 800px;
+    height: 500px;
 }
 
 .subButton{
     height: 25px;
     width: 100px;
     margin-left: 120px;
+    margin-bottom: 50px;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
 }
