@@ -34,7 +34,7 @@ Board.prototype.renderBoard = function( ){
 	for( var i  = 0; i < this.height; i++){
 		var row = document.createElement( 'div');
 		row.className = "row";
-		row.style.cssText = "width: " + (27 * this.width) + "px;";
+		row.style.cssText = "width: " + (52 * this.width) + "px;";
 		space.append(row);	
 	}
 	for( var j = 0; j < this.width; j++){	
