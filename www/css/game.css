@@ -1,0 +1,12 @@
+.slot{
+	height: 25px;
+	width: 25px;
+	border: 1px solid black;
+	float: left;
+}
+
+.row{
+	height: 25px;
+	position: relative;
+	margin-left: 25px;
+}

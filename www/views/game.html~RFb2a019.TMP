@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	 	<meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+        <link rel="stylesheet" type="text/css" href="../css/game.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    	<script src="../js/game.js"></script>
+    	<script src="../js/bubble.js"></script>
+    	<script src="../js/board.js"></script>
+        <title>Bubble Pop</title>
+    </head>
+    <body>
+    	<h1> Game </h1>
+    	<div id="boardSpace">Something</div><br>
+        <div id="scoreBoard">
+            <span>3 Combo: <span id="three">0</span></span><br>
+            <span>4 Combo: <span id="four">0</span></span><br>
+            <span>5 Combo: <span id="five">0</span></span><br>
+            <span>6+ Combo: <span id="six">0</span></span><br>
+            <span>Total Score:<span id="total">0</span></span>
+        </div>
+    </body>
+    <script>
+    $(document).ready(function(){
+    	var grid = initializeGame();
+        var play = checkGrid( grid, 3, 3 );
+        if( play === true ){
+            $('.slot').click(function(){
+                var slotVal = $(this).index();
+                var rowVal = $(this).parent('div').index();
+                checkBubbles( rowVal, slotVal, grid, false );
+            });
+        }
+        else{
+            alert("No combos remain! \n Total Score: " + $("#total").text());
+            window.location.reload();
+        }
+    });
+    </script>
+</html>
