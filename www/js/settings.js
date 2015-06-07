@@ -37,6 +37,7 @@ function displayScore(){
 	db.transaction(function( x ){
 		x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){		 
 			$('#score').html("<strong>" +  result.rows[0].score + "</strong>");
+			return true;
 		});
 	}, callback);
 
@@ -66,7 +67,7 @@ function displayHS(){
         }, callback);
 }
 
-function callback(cb){
-	alert(cb.message);
+function callback(tx, cb){
+	alert(tx + " " + cb.message);
 }
 
