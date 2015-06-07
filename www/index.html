@@ -16,11 +16,11 @@
         
 
 
-        <title>Bubble Pop</title>
+        <title>Brick Pop</title>
     </head>
     <body>
     	<div class="container">
-	    	<h1> Bubble Pop! </h1>
+	    	<h1> Brick Pop! </h1>
 	    	<div id="buttons">
 	    		<button onclick="game()" class="subButton"> Play! </button>
 	    		<button onclick="displayScore()" class="subButton"> High Score</button>
@@ -32,15 +32,21 @@
     </body>
     <script>
     $(document).ready(function(){
-    	onDeviceReady();
+       var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+       var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+    	$('body').css({ "width" : width, "height" : height, "max-width" : width, "max-height" : height, "overflow" : "hidden" });
     	$('#hs').css("display", "none");
+
+    	onDeviceReady();
+
+	  
 
     
 
     })
     function game(){
     		document.location.href = 'views/game.html';
-   		}
+   	}
    
     </script>
 </html>

@@ -21,6 +21,7 @@ function checkScore( score ){
 }
 
 function displayScore(){
+	alert( 'here' );
 	$('#hs').css("display", "visible");
 	$('#score').html( window.localStorage.getItem("score"));
 
