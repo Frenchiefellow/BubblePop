@@ -1,5 +1,5 @@
 function retrieveDB(){
-	var db = openDatabase('Datas', '1.0', "Settings info", 2 * 1024 * 1024);
+	var db = window.openDatabase('Datas', '1.0', "Settings info", 2 * 1024 * 1024);
 	db.transaction(function( x ){
 		x.executeSql("CREATE TABLE IF NOT EXISTS Setting (user unique, combo, boardSize, score)");
 	});
@@ -33,9 +33,13 @@ function checkScore( score ){
 
 function displayScore(){
 	$('#hs').css("display", "visible");
-	var xml = retrieveXML();
-	var previous = xml.getElementsByTagName("score")[0].innerHTML;
-	$('#score').html("<strong>" + previous + "</strong>");
+	var db = retrieveDB();
+	db.transaction(function( x ){
+		x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){		 
+			$('#score').html("<strong>" +  result.rows[0].score + "</strong>");
+		});
+	});
+
 	$("#score").css("font-size", "2.0em");
 	$('#hs').dialog({
 			resizable: false,
@@ -44,7 +48,10 @@ function displayScore(){
 			height: 150,
 			buttons : {
 				"Reset Score" : function(){
-					xml.getElementsByTagName("score")[0].innerHTML = 0;
+					db.transaction(function( x ){
+						var score = 0;
+						x.executeSql("UPDATE Setting SET score=? WHERE user=1", [score]);
+					});
 					displayScore();
 				}
 			}
