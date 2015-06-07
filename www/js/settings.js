@@ -1,3 +1,5 @@
+
+document.addEventListener("deviceready", retrieveDB, false);
 function retrieveDB(){
 	var db = window.openDatabase('Datas', '1.0', "Settings info", 2 * 1024 * 1024);
 	db.transaction(function( x ){
