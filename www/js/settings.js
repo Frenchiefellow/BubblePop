@@ -21,11 +21,10 @@ function checkScore( score ){
 }
 
 function displayScore(){
-	alert( 'here' );
 	$('#hs').css("display", "visible");
 	$('#score').html( window.localStorage.getItem("score"));
-
 	$("#score").css("font-size", "2.0em");
+	
 	$('#hs').dialog({
 			resizable: false,
 			modal: true,
