@@ -41,7 +41,7 @@ function displayScore(){
 			$('#score').html("<strong>" +  result.rows[0].score + "</strong>");
 		});
 	}, function(e){
-			alert(e);
+			alert(e.message);
 		});
 
 	$("#score").css("font-size", "2.0em");
