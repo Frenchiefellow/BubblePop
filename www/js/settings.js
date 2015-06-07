@@ -71,6 +71,6 @@ function callback(tx, cb){
 	alert(tx + " " + cb.message + " " + cb.code);
 }
 function successCB(){
-	alert( "WROKING")
+	return true;
 }
 
