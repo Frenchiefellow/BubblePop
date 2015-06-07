@@ -1,16 +1,15 @@
 var db;
-document.addEventListener("deviceready", retrieveDB, false);
+document.addEventListener("deviceready", retrieveDB(), false);
 function retrieveDB(){
 	db = window.openDatabase('Datas', '1.0', "Settings info", 2 * 1024 * 1024);
 	db.transaction(function( x ){
 		x.executeSql("CREATE TABLE IF NOT EXISTS Setting (user unique, combo, boardSize, score)");
 	});
-	return db;
+
 }
 
 function checkScore( score ){
 	var html;
-	var db = retrieveDB();
 	var previous;
 	var html;
 	db.transaction(function( x ){
@@ -35,7 +34,6 @@ function checkScore( score ){
 
 function displayScore(){
 	$('#hs').css("display", "visible");
-	var db = retrieveDB();
 	db.transaction(function( x ){
 		x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){		 
 			$('#score').html("<strong>" +  result.rows[0].score + "</strong>");
@@ -60,5 +58,13 @@ function displayScore(){
 				}
 			}
 		});
+}
+
+function displayHS(){
+	   db.transaction(function( x ){
+            x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
+                $('#hsT').html(result.rows[0].score);
+            });
+        });
 }
 

@@ -15,12 +15,8 @@ Game.prototype.gameType = function(){
 /**************************************************************************************************/
 function initializeGame() {
 	var grid = loadGame();
-	var db = retrieveDB();
-        db.transaction(function( x ){
-            x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
-                $('#hsT').html(result.rows[0].score);
-            });
-        });
+	displayHS();
+     
 	return grid;
 }
 
