@@ -67,6 +67,6 @@ function displayHS(){
 }
 
 function callback(cb){
-	alert(cb);
+	alert(cb.message);
 }
 
