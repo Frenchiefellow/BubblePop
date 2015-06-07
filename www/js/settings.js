@@ -1,14 +1,13 @@
 var db;
 
-document.addEventListener("deviceready", onDeviceReady(), false);
-
 function onDeviceReady(){
 	db = window.openDatabase('Datas', '1.0', "Settings info", 2 * 1024 * 1024);
 	db.transaction(function( x ){
 		x.executeSql("CREATE TABLE IF NOT EXISTS Setting (user unique, combo, boardSize, score)");
+	}, callback, successCB);
+	db.transaction(function( x ){
 		x.executeSql("INSERT OR IGNORE INTO Setting (user, combo, boardSize, score) VALUES (1, 3, 8, 0)");
 	}, callback, successCB);
-
 }
 
 function checkScore( score ){
@@ -72,6 +71,6 @@ function callback(cb){
 	alert(cb.message + " " + cb.code);
 }
 function successCB(){
-	
+	alert("many successes!")
 }
 
