@@ -1,50 +1,28 @@
-var db;
-
 function onDeviceReady(){
-	db = window.openDatabase('Datas', '1.0', "Settings info", 2 * 1024 * 1024);
-	db.transaction(function( x ){
-		x.executeSql("CREATE TABLE IF NOT EXISTS Setting (user unique, combo, boardSize, score)");
-	}, callback, successCB);
-	db.transaction(function( x ){
-		x.executeSql("INSERT OR IGNORE INTO Setting (user, combo, boardSize, score) VALUES (1, 3, 8, 0)");
-	}, callback, successCB);
-	db.transaction(function( x ){
-		x.executeSql("SELECT * FROM Setting", [], function(tx, result){
-			previous = result.rows[0].score;
-			alert( previous );
-		});
-	}, callback, successCB);
+	if( window.localStorage.getItem('combo') === null){
+		window.localStorage.setItem("combo", 3);
+		window.localStorage.setItem("boardSize", 8);
+		window.localStorage.setItem("score", 0);
+	}
 }
 
 function checkScore( score ){
+	var prev = window.localStorage.getItem('score');
 	var html;
-	var previous;
-	var html;
-	db.transaction(function( x ){
-		score = 10;
-		/*x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
-			previous = result.rows[0].score;*/
-			if( score > previous ){
-				x.executeSql("UPDATE Setting SET score=? WHERE user=1", [score]);
-				html = "<Mstrong>Score: " + score + " (High Score!)</strong><br><br>Do you start another?";
-				$('#dText').html(html);
-			}else{
-				html = "<Mstrong>Score: " + score + "</strong><br><br>Do you start another?";
-				$('#dText').html(html);
-			}
-	}, callback, successCB);
 
-
+	if(score > prev){
+		html = "<strong>Score: " + score + " (HIGH SCORE!)</strong><br>Play Again?";
+		window.localStorage.setItem("score", score);
+	}
+	else{
+		html = html = "<strong>Score: " + score + "</strong><br>Play Again?";
+	}
 	return html;
 }
 
 function displayScore(){
 	$('#hs').css("display", "visible");
-	db.transaction(function( x ){
-		x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){		 
-			$('#score').html("<strong>" +  result.rows[0].score + "</strong>");
-		});
-	}, callback, successCB);
+	$('#score').html( window.localStorage.getItem("score"));
 
 	$("#score").css("font-size", "2.0em");
 	$('#hs').dialog({
@@ -54,10 +32,7 @@ function displayScore(){
 			height: 150,
 			buttons : {
 				"Reset Score" : function(){
-					db.transaction(function( x ){
-						var score = 0;
-						x.executeSql("UPDATE Setting SET score=? WHERE user=1", [score]);
-					} , callback, successCB);
+					window.localStorage.setItem("score", 0);
 					displayScore();
 				}
 			}
@@ -65,19 +40,7 @@ function displayScore(){
 }
 
 function displayHS(){
-	   db.transaction(function( x ){
-           /* x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
-                $('#hsT').html(result.rows[0].score);
-            });*/
-	   var score = 10;
-	   	x.executeSql("UPDATE Setting SET score=? WHERE user=1", [score]);
-        }, callback, successCB);
+		$("#hsT").html( window.localStorage.getItem('score'));
 }
 
-function callback(cb){
-	alert(cb.message + " " + cb.code);
-}
-function successCB(){
-	alert("many successes!")
-}
 

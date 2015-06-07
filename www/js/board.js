@@ -85,7 +85,7 @@ function endGame( score, end){
 	$("#endGame").css("display", "visible");
 	if( end === true ){
 		var html = checkScore( score );
-		//$('#dText').html(html)
+		$('#dText').html(html)
 		$('#endGame').dialog({
 			resizable: false,
 			modal: true,
@@ -97,7 +97,6 @@ function endGame( score, end){
 					window.location.reload();
 				},
 				"No" : function(){
-
 					$(this).dialog('close');
 					window.location.href = '../index.html';
 				}
@@ -118,7 +117,7 @@ function endGame( score, end){
 					endGame( score, true );
 				},
 				"Quit" : function(){
-
+					endGame( score, true );
 					$(this).dialog('close');
 					window.location.href = '../index.html';
 				}
