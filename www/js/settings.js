@@ -32,7 +32,6 @@ function checkScore( score ){
 				html = "<Mstrong>Score: " + score + "</strong><br><br>Do you start another?";
 				$('#dText').html(html);
 			}
-		});
 	}, callback, successCB);
 
 
@@ -67,9 +66,11 @@ function displayScore(){
 
 function displayHS(){
 	   db.transaction(function( x ){
-            x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
+           /* x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
                 $('#hsT').html(result.rows[0].score);
-            });
+            });*/
+	   var score = 10;
+	   	x.executeSql("UPDATE Setting SET score=? WHERE user=1", [score]);
         }, callback, successCB);
 }
 
