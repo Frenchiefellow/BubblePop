@@ -37,7 +37,10 @@ function checkScore( score ){
 function displayScore(){
 	$('#hs').css("display", "visible");
 	db.transaction(function( x ){
-		alert("maybe working")
+		x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){		 
+			$('#score').html("<strong>" +  result.rows[0].score + "</strong>");
+			
+		});
 	}, callback, successCB);
 
 	$("#score").css("font-size", "2.0em");
@@ -70,9 +73,6 @@ function callback(cb){
 	alert(cb.message + " " + cb.code);
 }
 function successCB(){
-	x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){		 
-			$('#score').html("<strong>" +  result.rows[0].score + "</strong>");
-			
-		});
+	
 }
 
