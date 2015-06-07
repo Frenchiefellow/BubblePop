@@ -9,7 +9,7 @@ function onDeviceReady(){
 		x.executeSql("INSERT OR IGNORE INTO Setting (user, combo, boardSize, score) VALUES (1, 3, 8, 0)");
 	}, callback, successCB);
 	db.transaction(function( x ){
-		x.executeSql("SELECT * FROM Setting WHERE user=1", [], function(tx, result){
+		x.executeSql("SELECT * FROM Setting", [], function(tx, result){
 			previous = result.rows[0].score;
 			alert( previous );
 		});
@@ -21,8 +21,9 @@ function checkScore( score ){
 	var previous;
 	var html;
 	db.transaction(function( x ){
-		x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
-			previous = result.rows[0].score;
+		score = 10;
+		/*x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
+			previous = result.rows[0].score;*/
 			if( score > previous ){
 				x.executeSql("UPDATE Setting SET score=? WHERE user=1", [score]);
 				html = "<Mstrong>Score: " + score + " (High Score!)</strong><br><br>Do you start another?";
