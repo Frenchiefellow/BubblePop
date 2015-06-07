@@ -1,3 +1,0 @@
-combo = 3
-boardSize = 8
-score = 0
