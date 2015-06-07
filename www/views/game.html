@@ -8,33 +8,45 @@
          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
         <link rel="stylesheet" type="text/css" href="../css/game.css" />
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.11.4/jquery-ui.css" />
         <script src="../js/jquery-1.11.3.min.js"></script>
+         <script src="../js/jquery-ui.min.js"></script>
     	<script src="../js/game.js"></script>
     	<script src="../js/bubble.js"></script>
     	<script src="../js/board.js"></script>
+        <script src="../js/settings.js"></script>
         <title>Bubble Pop</title>
     </head>
     <body>
-    	<h1> Game </h1>
-    	<div id="boardSpace">Something</div><br><br>
-        <div id="scoreBoard">
-            <span>3 Combo: <span id="three">0</span></span><br>
-            <span>4 Combo: <span id="four">0</span></span><br>
-            <span>5 Combo: <span id="five">0</span></span><br>
-            <span>6+ Combo: <span id="six">0</span></span><br>
-            <span>Total Score:<span id="total">0</span></span>
+         <div id="scoreBoard">
+            <span id="score">Score: <span id="total">0</span></span><br><br><br>
+            <div id="hs">High Score: <span id="hsT"></span></div>
+            <div id="x">X</div>
+
+          
+
         </div>
+    	<div id="boardSpace">Something</div>
+        <div id="endGame" class=" ui-icon-alert"><div id="dText"></div></div>
+    
     </body>
     <script>
     $(document).ready(function(){
-    	var grid = initializeGame();
+        var grid = initializeGame();
       
-            $('.slot').click(function(){
-                console.log( "/*******************/ \nSTART")
+            $('.slot').on('click', function(){
+               // console.log( "/*******************/ \nSTART")
                 var slotVal = $(this).index();
                 var rowVal = $(this).parent('div').index();
+                //console.log( slotVal + " " + rowVal)
                 checkBubbles( rowVal, slotVal, grid, false );
             });
+            $('#x').click(function(){
+                endGame( Number($('#total').text()), false );
+            })
+
+        
+
       
     });
     </script>

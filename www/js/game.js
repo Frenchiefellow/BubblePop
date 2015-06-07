@@ -15,12 +15,18 @@ Game.prototype.gameType = function(){
 /**************************************************************************************************/
 function initializeGame() {
 	var grid = loadGame();
+	var db = retrieveDB();
+        db.transaction(function( x ){
+            x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){
+                $('#hsT').html(result.rows[0].score);
+            });
+        });
 	return grid;
 }
 
 function loadGame(){
 	var instance = new Game( "normal", 3 );
-	var board = new Board( 10, 10 );
+	var board = new Board( 8, 8 );
 	var grid = board.createBoard();
 	//console.log( board.getGrid() );
 	var check = checkGrid( grid, board.width, board.height);
@@ -53,7 +59,7 @@ function checkGrid( grid, height, width ){
 function checkBubbles( x, y, grid, gameCheck ){
 	var index = grid[x][y];
 	var color = index.getColor();
-	var indices = findAdjacents(grid, x, y, 9, 9);
+	var indices = findAdjacents(grid, x, y, 7, 7);
 	//console.log(indices);
 	var total = checkPairings( grid, indices, color, 0 );
 	var pairings = {};
@@ -105,8 +111,8 @@ function checkBubbles( x, y, grid, gameCheck ){
 			};
 		}
 		
-		
-		if( Object.keys(pairings).length > 2 && gameCheck === false)
+
+		if( Object.keys(pairings).length > 3 && gameCheck === false)
 			replacePairings( pairings, grid, color);
 		else
 			return pairings;
@@ -119,13 +125,13 @@ function recursion(pairings, grid, color, total, count, indices){
 		//console.log( "pairings from recursion: " + initial + " - Count: " + count);
 		var position = 	pairings['\'' + count + '\''];
 		//console.log( position );
-		var indexes = findAdjacents( grid, position.X, position.Y, 9, 9 );
+		var indexes = findAdjacents( grid, position.X, position.Y, 7, 7 );
 		//console.log( indexes )
 		var newTotal = checkPairings( grid, indexes, color, total.Count);
 	
 	
-		console.log( "newTotal for: " + position.X + "|" + position.Y );
-		console.log( newTotal );
+		//console.log( "newTotal for: " + position.X + "|" + position.Y );
+		//console.log( newTotal );
 		if( newTotal.Above.value === true && (indices.indexOf(newTotal.Above.X + "_" + newTotal.Above.Y) === -1 )){
 			indices.push(newTotal.Above.X + "_" + newTotal.Above.Y);
 			var key = Object.keys(pairings).length - 1;
@@ -193,9 +199,9 @@ function replacePairings( pairings, grid, color ){
 	});
 
 	//alert( "Combo of: " + comboSize );
-	assignColors( grid, 10);
+	assignColors( grid, 8);
 	adjustScore(comboSize);
-	var cont = checkGrid( grid, 10, 10);
+	var cont = checkGrid( grid, 8, 8);
 	if( cont === false){
 		alert("No combos remain! \n Total Score: " + $("#total").text());
 		window.location.reload();
@@ -204,30 +210,10 @@ function replacePairings( pairings, grid, color ){
 }
 
 function adjustScore(size){
-	var s3combo = $('#three');
-	var s4combo = $('#four');
-	var s5combo = $('#five');
-	var s6combo = $('#six');
 	var stotal = $('#total');
 
-	switch( size ){
-		case 3:
-			s3combo.html(Number(s3combo.text()) + 1);
-			stotal.html( Number(stotal.text()) +  Number(size));
-			break;
-		case 4: 
-			s4combo.html(Number(s4combo.text()) + 1);
-			stotal.html( Number(stotal.text()) +  Number(size));
-			break;
-		case 5: 
-			s5combo.html(Number(s5combo.text()) + 1);
-			stotal.html( Number(stotal.text()) +  Number(size));
-			break;
-		default: 
-			s6combo.html(Number(s6combo.text()) + 1);
-			stotal.html( Number(stotal.text()) +  Number(size));
-			break;
-	}
+	stotal.html( Number(stotal.text()) +  Number(size));
+		
 }
 
 function findAdjacents(grid, x, y, w, h){
@@ -296,6 +282,7 @@ function checkPairings( grid, indices, color, totalCount ){
 
 	return results;
 }
+
 
 
 

@@ -7,8 +7,11 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.11.4/jquery-ui.css" />
         <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="../js/jquery-ui.min.js"></script>
     	<script src="js/game.js"></script>
+    	<script src="js/settings.js"></script>
         <title>Bubble Pop</title>
     </head>
     <body>
@@ -16,14 +19,23 @@
 	    	<h1> Bubble Pop! </h1>
 	    	<div id="buttons">
 	    		<button onclick="game()" class="subButton"> Play! </button>
+	    		<button onclick="displayScore()" class="subButton"> High Score</button>
+	    		<div id="hs" class="ui-icon-alert"><div id="score"></div></div>
 	    		<button class="subButton"> Options </button>
 	    		<button class="subButton"> Credits </button>
 	    	</div>
 	    </div>
     </body>
     <script>
+    $(document).ready(function(){
+    	$('#hs').css("display", "none");
+
+    
+
+    })
     function game(){
-    	document.location.href = 'views/game.html';
-    }
+    		document.location.href = 'views/game.html';
+   		}
+   
     </script>
 </html>
