@@ -1,5 +1,5 @@
 var db;
-document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady(), false);
 function onDeviceReady(){
 	db = window.openDatabase('Datas', '1.0', "Settings info", 2 * 1024 * 1024);
 	db.transaction(function( x ){
@@ -38,7 +38,7 @@ function displayScore(){
 		x.executeSql("SELECT score FROM Setting WHERE user=1", [], function(tx, result){		 
 			$('#score').html("<strong>" +  result.rows[0].score + "</strong>");
 			return true;
-		}, callback);
+		});
 	}, callback, successCB);
 
 	$("#score").css("font-size", "2.0em");
@@ -68,9 +68,9 @@ function displayHS(){
 }
 
 function callback(tx, cb){
-	alert(tx + " " + cb.message + " " + cb.code;);
+	alert(tx + " " + cb.message + " " + cb.code);
 }
-function sucessCB(){
+function successCB(){
 	alert( "WROKING")
 }
 
