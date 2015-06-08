@@ -51,7 +51,7 @@ Board.prototype.renderBoard = function( ){
        $('.row').css( "height", Math.floor(($('#boardSpace').height() / this.height)));
        $('.slot').css( "width", (width / this.width) - 2);
        $('.slot').css( "height", $('.row').height() - 2);
-       $('#scoreBoard').height( Math.ceil( height * .10));
+       $('#scoreBoard').height( Math.floor( height * .10));
        $('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
 
 		assignColors( this.grid, this.width );
