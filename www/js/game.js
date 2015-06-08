@@ -1,4 +1,6 @@
 
+
+
 function Game( type, combo ){
 	this.type = type;
 	this.combo = combo;
@@ -21,8 +23,8 @@ function initializeGame() {
 }
 
 function loadGame(){
-	var instance = new Game( "normal", 3 );
-	var board = new Board( 8, 8 );
+	var instance = new Game( "normal", window.localStorage.getItem('combo') );
+	var board = new Board( window.localStorage.getItem('boardSize'), window.localStorage.getItem('boardSize') );
 	var grid = board.createBoard();
 	//console.log( board.getGrid() );
 	var check = checkGrid( grid, board.width, board.height);
@@ -31,7 +33,7 @@ function loadGame(){
 		return grid;
 	}
 	else
-		window.location.reload();
+		endGame(0, true, "No Combos Remain --");
 	
 }
 
@@ -40,7 +42,7 @@ function checkGrid( grid, height, width ){
 		for( var i = 0; i < height; i++ ){
 			for( var j = 0; j < width; j++){
 				var pairings = checkBubbles( i, j, grid, true);
-				if( pairings !== undefined && Object.keys(pairings).length > 2){
+				if( pairings !== undefined && Object.keys(pairings).length > (window.localStorage.getItem('combo') - 1) ){
 					//console.log( "valid game");
 					combo = true;
 					break;
@@ -55,22 +57,13 @@ function checkGrid( grid, height, width ){
 function checkBubbles( x, y, grid, gameCheck ){
 	var index = grid[x][y];
 	var color = index.getColor();
-	var indices = findAdjacents(grid, x, y, 7, 7);
-	//console.log(indices);
+	var indices = findAdjacents(grid, x, y, window.localStorage.getItem('boardSize') - 1,  window.localStorage.getItem('boardSize') - 1);
 	var total = checkPairings( grid, indices, color, 0 );
 	var pairings = {};
 	if( total.Count !== 0 ){
-		//console.log( total );
+		
 		pairings['initial'] = { "X" : x, "Y" : y};
-		/*$.each( total, function(){
-			if( $(this)[0].value === true ){
-				var index = Object.keys( pairings ).length - 1;
-				var data = { "X" : $(this)[0].X, "Y" : $(this)[0].Y };
-				pairings['\'' + index + '\''] = (data);	
-			} 
-		});
-		/*console.log( "pairings initial" )
-		console.log( Object.keys(pairings).length ) ;*/
+	
 		var indices = Array();
 		if( total.Above.value === true && (indices.indexOf(total.Above.X + "_" + total.Above.Y) === -1 )){
 			indices.push(total.Above.X + "_" + total.Above.Y);
@@ -108,7 +101,7 @@ function checkBubbles( x, y, grid, gameCheck ){
 		}
 		
 
-		if( Object.keys(pairings).length > 3 && gameCheck === false)
+		if( Object.keys(pairings).length > window.localStorage.getItem('combo') && gameCheck === false)
 			replacePairings( pairings, grid, color);
 		else
 			return pairings;
@@ -117,17 +110,14 @@ function checkBubbles( x, y, grid, gameCheck ){
 }
 function recursion(pairings, grid, color, total, count, indices){
 		var initial = Object.keys( pairings ).length;
-		//console.log("Count:" + count);
-		//console.log( "pairings from recursion: " + initial + " - Count: " + count);
+	
 		var position = 	pairings['\'' + count + '\''];
-		//console.log( position );
-		var indexes = findAdjacents( grid, position.X, position.Y, 7, 7 );
-		//console.log( indexes )
+		
+		var indexes = findAdjacents( grid, position.X, position.Y, window.localStorage.getItem('boardSize') - 1 , window.localStorage.getItem('boardSize') - 1);
+	
 		var newTotal = checkPairings( grid, indexes, color, total.Count);
 	
 	
-		//console.log( "newTotal for: " + position.X + "|" + position.Y );
-		//console.log( newTotal );
 		if( newTotal.Above.value === true && (indices.indexOf(newTotal.Above.X + "_" + newTotal.Above.Y) === -1 )){
 			indices.push(newTotal.Above.X + "_" + newTotal.Above.Y);
 			var key = Object.keys(pairings).length - 1;
@@ -163,8 +153,6 @@ function recursion(pairings, grid, color, total, count, indices){
 
 function replacePairings( pairings, grid, color ){
 	var comboSize = Object.keys(pairings).length-1;
-	//console.log( pairings );
-	
 	
 	$.each( pairings, function(){
 		var y = $(this)[0].Y;
@@ -194,13 +182,12 @@ function replacePairings( pairings, grid, color ){
 
 	});
 
-	//alert( "Combo of: " + comboSize );
-	assignColors( grid, 8);
+	
+	assignColors( grid, window.localStorage.getItem('boardSize'));
 	adjustScore(comboSize);
-	var cont = checkGrid( grid, 8, 8);
+	var cont = checkGrid( grid, window.localStorage.getItem('boardSize'), window.localStorage.getItem('boardSize'));
 	if( cont === false){
-		alert("No combos remain! \n Total Score: " + $("#total").text());
-		window.location.reload();
+		endGame(score, true, "No Combos Remain --");
 	}
 		
 }
@@ -236,8 +223,7 @@ function findAdjacents(grid, x, y, w, h){
 
 function checkPairings( grid, indices, color, totalCount ){
 	var count = 0;
-	/*console.log( "indices")
-	console.log( indices );*/
+
 	var results = { "Above" : { "value" : false,  "X" : null, "Y" : null}, "Below" : { "value" : false,  "X" : null, "Y" : null}, "Left" : { "value" : false,  "X" : null, "Y": null}, "Right" : { "value" : false,  "X" : null, "Y" : null}, "Count" : 0}
 	if( indices.Above !== null && indices.Above.color === color ){
 		count++;
@@ -268,7 +254,7 @@ function checkPairings( grid, indices, color, totalCount ){
 		results.Left.Y = (indices.Y - 1);
 	}
 	
-	//console.log( count + " count from checkPairings");
+	
 
 	if( count > 0 ){
 		totalCount += count;

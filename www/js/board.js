@@ -81,15 +81,15 @@ function assignColors( grid, width ){
   	});
 }
 
-function endGame( score, end){
+function endGame( score, end, done){
 	$("#endGame").css("display", "visible");
 	if( end === true ){
-		var html = checkScore( score );
-		$('#dText').html(html)
+		var html = checkScore( score);
+		$('#dText').html(html);
 		$('#endGame').dialog({
 			resizable: false,
 			modal: true,
-			title: "Game Over!",
+			title: done + "Game Over!",
 			height: 170,
 			buttons: {
 				"Yes" : function(){
@@ -117,9 +117,8 @@ function endGame( score, end){
 					endGame( score, true );
 				},
 				"Quit" : function(){
-					endGame( score, true );
 					$(this).dialog('close');
-					window.location.href = '../index.html';
+					endGame( score, true );
 				}
 			}
 		});

@@ -3,7 +3,13 @@ function onDeviceReady(){
 		window.localStorage.setItem("combo", 3);
 		window.localStorage.setItem("boardSize", 8);
 		window.localStorage.setItem("score", 0);
+
+		$('#opts [name="comboSize"]').attr("value", window.localStorage.getItem('combo'));
+		$('#opts [name="bSize"]').attr("value", window.localStorage.getItem('boardSize') );
 	}
+	$('#opts [name="comboSize"]').attr("value", window.localStorage.getItem('combo'));
+	$('#opts [name="bSize"]').attr("value", window.localStorage.getItem('boardSize') );
+	$('#opts [name="comboSize"] ,#opts [name="bSize"] ').css({ "width" : "40px"});
 }
 
 function checkScore( score ){
@@ -41,6 +47,59 @@ function displayScore(){
 
 function displayHS(){
 		$("#hsT").html( window.localStorage.getItem('score'));
+}
+
+function options(){
+	$('#opt').css("display", "visible");
+	$('#opt span').css({ "float" : "left"});
+	$('#opt input').css({ "float" : "right"});
+	$('#opt').dialog({
+			resizable: false,
+			modal: true,
+			title: "Options",
+			height: 200,
+			buttons : {
+				"Apply" : function(){
+					if( $('#opts [name="comboSize"]').val() !== "" &&  $('#opts [name="comboSize"]').val() !== ""){
+						window.localStorage.setItem("combo", $('#opts [name="comboSize"]').val() );
+						window.localStorage.setItem("boardSize", $('#opts [name="bSize"]').val() );
+						$(this).dialog('close');
+					}
+					else if( $('#opts [name="comboSize"]').val() !== "" &&  $('#opts [name="comboSize"]').val() === "" ){
+						window.localStorage.setItem("boardSize", $('#opts [name="bSize"]').val() );
+						$(this).dialog('close');
+					}
+					else if ( $('#opts [name="comboSize"]').val() === "" &&  $('#opts [name="comboSize"]').val() !== "" ){
+						window.localStorage.setItem("combo", $('#opts [name="comboSize"]').val() );
+						$(this).dialog('close');
+					}
+					else{
+						$(this).dialog('close');
+					}
+				},
+				"Close" : function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+}
+
+function credits(){
+	$('#cred').css("display", "visible");
+	$('#cred').dialog({
+			resizable: false,
+			modal: true,
+			title: "Credits",
+			height: 140,
+			buttons : {
+				"GitHub" : function(){
+					window.location.href = 'https://www.github.com/frenchiefellow';
+				},
+				"Close" : function(){
+					$(this).dialog('close');
+				}
+			}
+		});
 }
 
 

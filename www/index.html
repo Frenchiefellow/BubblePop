@@ -25,28 +25,34 @@
 	    		<button onclick="game()" class="subButton"> Play! </button>
 	    		<button onclick="displayScore()" class="subButton"> High Score</button>
 	    		<div id="hs" class="ui-icon-alert"><div id="score"></div></div>
-	    		<button  onclick="displayScore()" class="subButton"> Options </button>
-	    		<button class="subButton"> Credits </button>
+	    		<button  onclick="options()" class="subButton"> Options </button>
+	    		<div id="opt" class="ui-icon-alert">
+	    			<form id="opts">
+	    			<span>Minimum Combo Size: </span><input type="number" name="comboSize" min="2" max="5" ><br><br>
+	    			<span>Board Size: </span><input type="number" name="bSize" min="3" max="10" >
+	    			</form>
+	    		</div>
+	    		<button onclick="credits()" class="subButton"> Credits </button>
+	    		<div id="cred" class="ui-icon-alert">
+	    			<div id="creds">Developed by: Chris Peterson <br> Copyright 2015</div>
+	    		</div>
 	    	</div>
 	    </div>
     </body>
     <script>
     $(document).ready(function(){
-       var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
-       var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
-    	$('body').css({ "width" : width, "height" : height, "max-width" : width, "max-height" : height, "overflow" : "hidden" });
-    	$('#hs').css("display", "none");
-
+    	responsive();
     	onDeviceReady();
-
-	  
-
-    
-
-    })
+    });
     function game(){
     		document.location.href = 'views/game.html';
    	}
    
+   	function responsive(){
+   	   var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+       var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+    	$('body').css({ "width" : width, "height" : height, "max-width" : width, "max-height" : height, "overflow" : "hidden" });
+    	$('#hs ,#opt ,#cred').css("display", "none");
+   	}
     </script>
 </html>
