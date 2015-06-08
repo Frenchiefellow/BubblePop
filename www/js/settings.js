@@ -102,4 +102,18 @@ function credits(){
 		});
 }
 
+function correctMe()
+  {
+    switch(window.orientation) 
+    {  
+      case -90:
+      case 90:
+        window.orientation = 0;
+        break; 
+      default:
+       	window.orientation = 0;
+        break; 
+    }
+  }
+
 
