@@ -108,12 +108,46 @@ function correctMe()
     {  
       case -90:
       case 90:
-        alert("I TURNED!")
+      alert( "I ROTATED");
+        if( window.location.href.indexOf("game.html") > -1){
+        	responsiveGame( false );
+        }
+        else{
+        	responsiveMenu( false );
+        }
         break; 
       default:
-       	window.orientation = 0;
+        if( window.location.href.indexOf("game.html") > -1){
+        	responsiveGame( true );
+        }
+        else{
+        	responsiveMenu( true );
+        }
+       
         break; 
     }
   }
 
 
+function responsiveMenu( direction ){
+	if( direction === true){
+			var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+        	$('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
+	}
+	else{
+			var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+        	$('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
+        	/*$('.container').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
+        	$('.buttons').css({"max-width" : width, "max-height" : height *.8 , "width" : width, "height" : height * .8});*/
+	}
+}
+
+function responsiveGame( direction ){
+	if( direction === true){
+
+	}
+	else{
+	}
+}
