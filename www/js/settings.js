@@ -108,7 +108,6 @@ function correctMe()
     {  
       case -90:
       case 90:
-      alert( "I ROTATED");
         if( window.location.href.indexOf("game.html") > -1){
         	responsiveGame( false );
         }
@@ -117,6 +116,7 @@ function correctMe()
         }
         break; 
       default:
+      	alert("ROTATED PORTRAIT")
         if( window.location.href.indexOf("game.html") > -1){
         	responsiveGame( true );
         }
@@ -138,7 +138,7 @@ function responsive(){
     	$('#buttons').width( width );
     	$('#buttons').height( height * .8)
     	$('.subButton').css({ "margin-bottom" : $('#buttons').height() / 6, "margin-left" : (($('#buttons').width() - 100) / 2)  })
-   	}
+}
 
 
 function responsiveGame( direction ){
