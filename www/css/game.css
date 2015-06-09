@@ -10,7 +10,7 @@
 
 .slot{
 	height: 30px;
-	width: 30px;
+	width: 29px;
 	border: 1px solid black;
 	float: left;
 }
@@ -41,6 +41,8 @@ body{
 
 #scoreBoard{
 	background-color: white;
+	position: relative;
+	margin: 0 auto;
 }
 
 #endGame{
@@ -56,4 +58,7 @@ body{
 	float: left;
 	font-weight: bold;
 	font-family: OpenSans-ExtraBold;
+	position: absolute;
+	
+
 }

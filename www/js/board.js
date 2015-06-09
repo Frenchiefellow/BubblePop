@@ -38,26 +38,31 @@ Board.prototype.renderBoard = function( ){
 		space.append(row);	
 	}
 	for( var j = 0; j < this.width; j++){	
-		var slot = document.createElement('span');
+		var slot = document.createElement('div');
 		slot.className = "slot";
 		$('.row').append(slot);
 	}	
 
+
+		responsiveBoard(this.width, this.height);
+		assignColors( this.grid, this.width );
+}
+
+/*****************************************************************************************/
+function responsiveBoard(w,h){
 	   var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
        var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
        $('#boardSpace').width( width );
        $('#boardSpace').height( Math.ceil(height - (height * .10)));
        $('.row').css({"width" : width });
-       $('.row').css( "height", Math.floor(($('#boardSpace').height() / this.height)));
-       $('.slot').css( "width", (width / this.width) - 2);
+       $('.row').css( "height", Math.floor(($('#boardSpace').height() / h)));
+       $('.slot').css( "width", Math.floor($('.row').width() / w) - 2);
        $('.slot').css( "height", $('.row').height() - 2);
        $('#scoreBoard').height( Math.floor( height * .10));
        $('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
-
-		assignColors( this.grid, this.width );
+       $('#hs').css({ "top" :  $('#scoreBoard').height() - $('#hs').height() })
 }
 
-/*****************************************************************************************/
 function boardArray( height, width ){
 	var arr = new Array( height );
 	for( var i = 0; i < height; i++ )
@@ -70,7 +75,7 @@ function assignColors( grid, width ){
 	var columns = 0;
 
   	$('#boardSpace').children('div').each(function(){
-  		$(this).find('span').each(function(){
+  		$(this).find('div').each(function(){
   			$(this).css("background-color", grid[rows][columns].getColor());
   			if( columns < width - 1)
 				columns++;

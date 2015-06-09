@@ -108,7 +108,7 @@ function correctMe()
     {  
       case -90:
       case 90:
-        window.orientation = 0;
+        alert("I TURNED!")
         break; 
       default:
        	window.orientation = 0;
