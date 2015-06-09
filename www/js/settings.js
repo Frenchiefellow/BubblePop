@@ -108,6 +108,7 @@ function correctMe()
     {  
       case -90:
       case 90:
+      alert( "ROTATED LANDSCAPE")
         if( window.location.href.indexOf("game.html") > -1){
         	responsiveGame( false );
         }
