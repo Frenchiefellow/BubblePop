@@ -113,7 +113,7 @@ function correctMe()
         	responsiveGame( false );
         }
         else{
-        	responsiveMenu( false );
+        	responsive();
         }
         break; 
       default:
@@ -121,7 +121,7 @@ function correctMe()
         	responsiveGame( true );
         }
         else{
-        	responsiveMenu( true );
+        	responsive();
         }
        
         break; 
@@ -129,20 +129,17 @@ function correctMe()
   }
 
 
-function responsiveMenu( direction ){
-	if( direction === true){
-			var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
-      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
-        	$('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
-	}
-	else{
-			var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
-      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
-        	$('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
-        	$('.container').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
-        	$('.buttons').css({"max-width" : width, "max-height" : height *.8 , "width" : width, "height" : height * .8});
-	}
-}
+function responsive(){
+   	   var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+       var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+        $('h1').css({ "margin-bottom" : height * .15})
+    	$('body').css({ "width" : width, "height" : height, "max-width" : width, "max-height" : height, "overflow" : "hidden" });
+    	$('#hs ,#opt ,#cred').css("display", "none");
+    	$('#buttons').width( width );
+    	$('#buttons').height( height * .8)
+    	$('.subButton').css({ "margin-bottom" : $('#buttons').height() / 6, "margin-left" : (($('#buttons').width() - 100) / 2)  })
+   	}
+
 
 function responsiveGame( direction ){
 	if( direction === true){
