@@ -108,18 +108,21 @@ function correctMe()
     {  
       case -90:
       case 90:
-      alert( "ROTATED LANDSCAPE")
+
         if( window.location.href.indexOf("game.html") > -1){
-        	responsiveGame( false );
+        	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+        	responsiveBoard(width, height, true );
         }
         else{
         	responsive();
         }
         break; 
       default:
-      	alert("ROTATED PORTRAIT")
         if( window.location.href.indexOf("game.html") > -1){
-        	responsiveGame( true );
+        	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+        	responsiveBoard(width, height, false );
         }
         else{
         	responsive();
@@ -143,9 +146,5 @@ function responsive(){
 
 
 function responsiveGame( direction ){
-	if( direction === true){
 
-	}
-	else{
-	}
 }

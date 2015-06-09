@@ -44,12 +44,12 @@ Board.prototype.renderBoard = function( ){
 	}	
 
 
-		responsiveBoard(this.width, this.height);
+		responsiveBoard(this.width, this.height, false);
 		assignColors( this.grid, this.width );
 }
 
 /*****************************************************************************************/
-function responsiveBoard(w,h){
+function responsiveBoard(w,h, orient){
 	   var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
        var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
        $('#boardSpace').width( width );
@@ -61,6 +61,9 @@ function responsiveBoard(w,h){
        $('#scoreBoard').height( Math.floor( height * .10));
        $('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
        $('#hs').css({ "top" :  $('#scoreBoard').height() - $('#hs').height() })
+       if( orient === true){
+       		$('#score').css({"font-size" : "1.0em"});
+       }
 }
 
 function boardArray( height, width ){
