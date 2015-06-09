@@ -55,6 +55,8 @@
        var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
     	$('body').css({ "width" : width, "height" : height, "max-width" : width, "max-height" : height, "overflow" : "hidden" });
     	$('#hs ,#opt ,#cred').css("display", "none");
+    	$('.buttons').width( width );
+    	$('.buttons').height( height * .8)
    	}
 
 

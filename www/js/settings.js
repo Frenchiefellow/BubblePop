@@ -139,8 +139,8 @@ function responsiveMenu( direction ){
 			var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
       		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
         	$('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
-        	/*$('.container').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
-        	$('.buttons').css({"max-width" : width, "max-height" : height *.8 , "width" : width, "height" : height * .8});*/
+        	$('.container').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
+        	$('.buttons').css({"max-width" : width, "max-height" : height *.8 , "width" : width, "height" : height * .8});
 	}
 }
 
