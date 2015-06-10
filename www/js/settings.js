@@ -111,7 +111,7 @@ function correctMe()
        setTimeout( function(){
 	        if( window.location.href.indexOf("game.html") > -1){
 	        	var size = window.localStorage.getItem('boardSize');
-	        	responsiveBoard(size, size, false );
+	        	responsiveBoard(size, size, true );
 	        }
 	        else{
 	        	responsive();
