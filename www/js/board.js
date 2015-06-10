@@ -62,7 +62,7 @@ function responsiveBoard(w,h, orient){
        $('body').css({"max-width" : width, "max-height" : height, "width" : width, "height" : height});
        $('#hs').css({ "top" :  $('#scoreBoard').height() - $('#hs').height() })
        if( orient === true){
-       		$('#score').css({"font-size" : "1.0em"});
+       		$('#score').css({"font-size" : "1.0em" });
        }
 }
 

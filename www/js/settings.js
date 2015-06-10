@@ -110,26 +110,24 @@ function correctMe()
       case 90:
        setTimeout( function(){
 	        if( window.location.href.indexOf("game.html") > -1){
-	        	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
-	      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
-	        	responsiveBoard(width, height, true );
+	        	var size = window.localStorage.getItem('boardSize');
+	        	responsiveBoard(size, size, false );
 	        }
 	        else{
 	        	responsive();
 	        }
-    	}, 500);
+    	}, 100);
         break; 
       default:
       	setTimeout( function(){
 	        if( window.location.href.indexOf("game.html") > -1){
-	        	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
-	      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
-	        	responsiveBoard(width, height, false );
+	        	var size = window.localStorage.getItem('boardSize');
+	        	responsiveBoard(size, size, false );
 	        }
 	        else{
 	        	responsive();
 	        }
-       	}, 500);
+       	}, 100);
         break; 
     }
   }
