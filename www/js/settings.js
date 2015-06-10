@@ -117,7 +117,7 @@ function correctMe()
 	        else{
 	        	responsive();
 	        }
-    	}, 3000)
+    	}, 500);
         break; 
       default:
       	setTimeout( function(){
@@ -129,7 +129,7 @@ function correctMe()
 	        else{
 	        	responsive();
 	        }
-       	}, 3000);
+       	}, 500);
         break; 
     }
   }
