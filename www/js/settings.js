@@ -108,7 +108,7 @@ function correctMe()
     {  
       case -90:
       case 90:
-
+       	var debug = true;
         if( window.location.href.indexOf("game.html") > -1){
         	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
       		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
@@ -119,6 +119,7 @@ function correctMe()
         }
         break; 
       default:
+      	var debug = false;
         if( window.location.href.indexOf("game.html") > -1){
         	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
       		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
@@ -144,7 +145,3 @@ function responsive(){
     	$('.subButton').css({ "margin-bottom" : $('#buttons').height() / 6, "margin-left" : (($('#buttons').width() - 100) / 2)  })
 }
 
-
-function responsiveGame( direction ){
-
-}
