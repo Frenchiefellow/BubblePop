@@ -108,27 +108,28 @@ function correctMe()
     {  
       case -90:
       case 90:
-       	alert();
-       	    if( window.location.href.indexOf("game.html") > -1){
-        	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
-      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
-        	responsiveBoard(width, height, true );
-        }
-        else{
-        	responsive();
-        }
+       setTimeout( function(){
+	        if( window.location.href.indexOf("game.html") > -1){
+	        	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+	      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+	        	responsiveBoard(width, height, true );
+	        }
+	        else{
+	        	responsive();
+	        }
+    	}, 3000)
         break; 
       default:
-      	alert();
-        if( window.location.href.indexOf("game.html") > -1){
-        	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
-      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
-        	responsiveBoard(width, height, false );
-        }
-        else{
-        	responsive();
-        }
-       
+      	setTimeout( function(){
+	        if( window.location.href.indexOf("game.html") > -1){
+	        	var width = (window.innerWidth > 0) ? window.innerWidth: screen.width;
+	      		var height = (window.innerHeight > 0) ? window.innerHeight: screen.height;
+	        	responsiveBoard(width, height, false );
+	        }
+	        else{
+	        	responsive();
+	        }
+       	}, 3000);
         break; 
     }
   }
