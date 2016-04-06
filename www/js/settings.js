@@ -3,6 +3,7 @@ function onDeviceReady(){
 		window.localStorage.setItem("combo", 3);
 		window.localStorage.setItem("boardSize", 8);
 		window.localStorage.setItem("score", 0);
+		window.localStorage.setItem("mode", 'Easy');
 
 		$('#opts [name="comboSize"]').attr("value", window.localStorage.getItem('combo'));
 		$('#opts [name="bSize"]').attr("value", window.localStorage.getItem('boardSize') );
@@ -16,7 +17,11 @@ function checkScore( score ){
 	var prev = window.localStorage.getItem('score');
 	var html;
 
-	if(score > prev){
+	if( isNaN(prev) ){
+		html = "<strong>Score: " + score + " (HIGH SCORE!)</strong><br>Play Again?";
+		window.localStorage.setItem("score", score);
+	}
+	else if(score > prev){
 		html = "<strong>Score: " + score + " (HIGH SCORE!)</strong><br>Play Again?";
 		window.localStorage.setItem("score", score);
 	}
@@ -60,17 +65,20 @@ function options(){
 			height: 200,
 			buttons : {
 				"Apply" : function(){
-					if( $('#opts [name="comboSize"]').val() !== "" &&  $('#opts [name="comboSize"]').val() !== ""){
+					if( $('#opts [name="comboSize"]').val() !== "" &&  $('#opts [name="bSize"]').val() !== ""){
 						window.localStorage.setItem("combo", $('#opts [name="comboSize"]').val() );
 						window.localStorage.setItem("boardSize", $('#opts [name="bSize"]').val() );
+						window.localStorage.setItem("mode", $('#opts [name="diff"]').val() );
 						$(this).dialog('close');
 					}
-					else if( $('#opts [name="comboSize"]').val() !== "" &&  $('#opts [name="comboSize"]').val() === "" ){
+					else if( $('#opts [name="comboSize"]').val() === "" &&  $('#opts [name="bSize"]').val() !== "" ){
 						window.localStorage.setItem("boardSize", $('#opts [name="bSize"]').val() );
+						window.localStorage.setItem("mode", $('#opts [name="diff"]').val() );
 						$(this).dialog('close');
 					}
-					else if ( $('#opts [name="comboSize"]').val() === "" &&  $('#opts [name="comboSize"]').val() !== "" ){
+					else if ( $('#opts [name="comboSize"]').val() !== "" &&  $('#opts [name="bSize"]').val() === "" ){
 						window.localStorage.setItem("combo", $('#opts [name="comboSize"]').val() );
+						window.localStorage.setItem("mode", $('#opts [name="diff"]').val() );
 						$(this).dialog('close');
 					}
 					else{
