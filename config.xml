@@ -34,7 +34,7 @@
   <gap:plugin name="org.apache.cordova.media"/>
   <gap:plugin name="org.apache.cordova.network-information"/>
   <gap:plugin name="org.apache.cordova.splashscreen"/>
-  <gap:plugin name="ScreenOrientation" value="org.apache.cordova.plugin.ScreenOrientation" />
+  <gap:plugin name="cordova-plugin-screen-orientation" source="npm" version="1.4.0" />
   <gap:plugin name="org.apache.cordova.vibration"/>
   <icon src="icon.png"/>
   <icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
