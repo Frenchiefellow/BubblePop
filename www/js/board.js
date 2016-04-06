@@ -12,22 +12,22 @@ Board.prototype.getGrid = function(){
 	return this.grid;
 };
 
-Board.prototype.createBoard = function(){
+Board.prototype.createBoard = function( mode ){
 	var height = this.height;
 	var width = this.width;
 	var numBalls = height * width;
 	var grid = boardArray( height, width )
-	grid[0][0] = new Bubble;
+	grid[0][0] = new Bubble( mode );
 	for( var i = 0; i < height; i++ ){
 		for( var j = 0; j < width; j++ ){
-			grid[i][j] = new Bubble();
+			grid[i][j] = new Bubble( mode );
 		}
 	}
 	this.grid = grid;
 	return grid;
 }
 
-Board.prototype.renderBoard = function( ){
+Board.prototype.renderBoard = function(  ){
 	var space = $("#boardSpace");
 	space.empty();
 
@@ -94,7 +94,7 @@ function assignColors( grid, width ){
 function endGame( score, end, done){
 	$("#endGame").css("display", "visible");
 	if( end === true ){
-		var html = checkScore( score);
+		var html = checkScore( score );
 		$('#dText').html(html);
 		$('#endGame').dialog({
 			resizable: false,
@@ -124,14 +124,27 @@ function endGame( score, end, done){
 			buttons: {
 				"New Game" : function(){
 					$(this).dialog('close');
-					endGame( score, true );
+					endGame( score, true,  score + "pts - ");
 				},
 				"Quit" : function(){
 					$(this).dialog('close');
-					endGame( score, true );
+					endGame( score, true, score + "pts - ");
 				}
 			}
 		});
 	}
+}
+
+function comboUpdate( index , comboSize ){
+	
+	var pColor = $('#prevColor');
+	var comboScore = $('#comboScore');
+	var pCombo = $('#prevCombo');
+	var color = index.color;
+	var mult = index.mult;
+
+	pColor.html( color );
+	pCombo.html( comboSize );
+	comboScore.html( comboSize * Number( mult ) );
 
 }
