@@ -1,9 +1,10 @@
 
 
 
-function Game( type, combo ){
+function Game( type, combo, mode ){
 	this.type = type;
 	this.combo = combo;
+	this.mode = mode;
 }
 
 Game.prototype.comboSize = function(){
@@ -14,6 +15,9 @@ Game.prototype.gameType = function(){
 	return this.type;
 }
 
+Game.prototype.mode = function(){
+	return this.mode;
+}
 /**************************************************************************************************/
 function initializeGame() {
 	var grid = loadGame();
@@ -23,9 +27,9 @@ function initializeGame() {
 }
 
 function loadGame(){
-	var instance = new Game( "normal", window.localStorage.getItem('combo') );
+	var instance = new Game( "normal", window.localStorage.getItem('combo'), window.localStorage.getItem( 'mode' ) );
 	var board = new Board( window.localStorage.getItem('boardSize'), window.localStorage.getItem('boardSize') );
-	var grid = board.createBoard();
+	var grid = board.createBoard( instance.mode );
 	//console.log( board.getGrid() );
 	var check = checkGrid( grid, board.width, board.height);
 	if( check === true ){
@@ -153,52 +157,100 @@ function recursion(pairings, grid, color, total, count, indices){
 
 function replacePairings( pairings, grid, color ){
 	var comboSize = Object.keys(pairings).length-1;
-	
+
+	var count = 0;
 	$.each( pairings, function(){
+		//console.log( $(this));
 		var y = $(this)[0].Y;
 		var x = $(this)[0].X;
-		for( var i = x; i >= 0; i--){
-			var val = false;
-			try{
-				if( grid[ i - 1][y] !== undefined)
-					val = true;
-			}catch(e){}
-			
-			if( val === true && grid[i-1][y].color === color){
-				for( var j = 2;  (i - j) >= 0; j++ ){
-					if(grid[ i - j][y].color  !== color ){
-						grid[i][y] = grid[ i - j][y];
-						break;
-					}
-				}
-			}
-			else if( val === true && grid[i-1][y]!== color){
-				grid[i][y] = grid[ i - 1][y];
-			}
-			else
-				grid[i][y] = new Bubble();
-		
+		if( grid[x][y].color === color){
+			grid[x][y] = new testBubble();
+			//console.log( 'initial black')
 		}
-
+		blackSwap( grid );
 	});
 
+	blackSwap( grid );
 	
+		
 	assignColors( grid, window.localStorage.getItem('boardSize'));
-	adjustScore(comboSize);
+	var score = adjustScore( comboSize, color );
 	var cont = checkGrid( grid, window.localStorage.getItem('boardSize'), window.localStorage.getItem('boardSize'));
 	if( cont === false){
 		endGame(score, true, "No Combos Remain --");
 	}
-		
+	else{
+		blackSwap( grid );
+	}
+
 }
 
-function adjustScore(size){
+// Checks the grid for any black blocks and returns its position
+function scanGrid( grid ){
+	var size = $('.row').length 
+	for( var i = 0; i < size; i++){
+		for( var j = 0; j < size; j++){
+			if( grid[i][j].color === 'black'){
+				return [i,j];
+				break;
+			}
+		}
+	}
+	return false;
+}
+
+//Checks above block in grid and determine whether its needs to be "repainted"
+function checkAbove( grid, v, z ){
+	if( (v - 1) < 0)
+		return null;
+	else if( grid[v - 1][z].color === 'black')
+		return true;
+	else
+		return false;
+}
+
+function blackSwap( grid ){
+	var blacks = scanGrid( grid );
+		while( blacks !== false){
+			//console.log( blacks[0] + " " + blacks[1])
+			var paint = checkAbove( grid, Number( blacks[0] ) , Number( blacks[1] ) );
+			if( paint === false ){
+				repaint( grid, blacks[0], blacks[1] );
+				blacks = scanGrid( grid  );
+			}
+			else if( paint === null ){
+				grid[ blacks[0] ][ blacks[1] ] = new Bubble( window.localStorage.getItem( 'mode' ) );
+				blacks = scanGrid( grid );
+			}
+			else{
+				blacks = scanGrid( grid );
+			}
+		}
+
+}
+//Swaps position of "popped" block with block above
+function repaint( grid, x1, y1){
+	grid[x1][y1] = grid[x1-1][y1];
+	$('.row:eq(' + x1 + ') .slot:eq(' + y1 + ')').slideDown('slow');
+	grid[x1-1][y1] = new testBubble();
+}
+
+function adjustScore(size, color ){
 	var stotal = $('#total');
+	var index = new indexBubble( color );
+	index = index.mult;
 
-	stotal.html( Number(stotal.text()) +  Number(size));
+	if( window.localStorage.getItem('mode') === '2')
+		stotal.html( Number(stotal.text()) +  ( Number(size) * index ) );
+	else
+		stotal.html( Number(stotal.text()) +  Number(size) );
+	comboUpdate( new indexBubble( color ) , size );
+
+	return Number( stotal.text() );
 		
 }
 
+// Returns all adjacent blocks to initial block
 function findAdjacents(grid, x, y, w, h){
 	if( x === 0 && y === 0)
 		return indices = { "Above" : null, "Below" : grid[x+1][y], "Right" : grid[x][y+1], "Left" : null, "X" : x, "Y" : y};
@@ -218,7 +270,6 @@ function findAdjacents(grid, x, y, w, h){
 		return indices = { "Above" : null, "Below" : grid[x+1][y], "Right" :  null, "Left" : grid[x][y-1], "X" : x, "Y" : y};
 	else 
 		return indices = { "Above" : grid[x-1][y], "Below" : grid[x+1][y], "Right" : grid[x][y+1], "Left" : grid[x][y-1], "X" : x, "Y" : y};
-
 }
 
 function checkPairings( grid, indices, color, totalCount ){
