@@ -142,7 +142,7 @@ function comboUpdate( index , comboSize ){
 	var pCombo = $('#prevCombo');
 	var color = index.color;
 	var mult = index.mult;
-	pColor.html( color + '(' + comboSize + '+' + bonus +')');
+	pColor.html( color + '(' + comboSize +')');
 	pCombo.html( comboSize );
 	comboScore.html( comboSize * Number( mult ) );
 
