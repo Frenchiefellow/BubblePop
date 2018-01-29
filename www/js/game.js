@@ -239,7 +239,7 @@ function adjustScore(size, color ){
 	var stotal = $('#total');
 	var index = new indexBubble( color );
 	index = index.mult;
-
+	size  = determineBonus(size)
 	if( window.localStorage.getItem('mode') === '2')
 		stotal.html( Number(stotal.text()) +  ( Number(size) * index ) );
 	else
@@ -250,6 +250,12 @@ function adjustScore(size, color ){
 		
 }
 
+function determineBonus(size){
+	size = Number(size);
+	if( size >= 5)
+		return Math.floor(Math.pow(size, 1.15)).toFixed(0) - size;
+
+}
 // Returns all adjacent blocks to initial block
 function findAdjacents(grid, x, y, w, h){
 	if( x === 0 && y === 0)

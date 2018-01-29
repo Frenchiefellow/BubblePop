@@ -1,5 +1,5 @@
 var colors = ["orange", "green", "red", "blue", "white", "yellow", "pink", "purple"];
-var hardProb = [ 18, 48, 88, 136, 148, 178, 198, 200 ];
+var hardProb = [ 18, 48, 88, 136, 148, 178, 193, 200 ];
 var easyProb = [ 25, 50, 75, 100, 125, 150, 175, 200 ];  
 var multiplier = [ 3, 1, 1, 2, 7, 6, 8, 100 ]
 
@@ -44,7 +44,6 @@ function getRandom( probability ){
 			returnVal = i;
 			break;
 		}
-		else{}
 	}
 
 	return returnVal;
